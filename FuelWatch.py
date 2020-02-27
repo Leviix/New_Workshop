@@ -10,6 +10,10 @@ and display the information in a nice table format, sorted by the lowest fuel pr
 
 
 
+IDEAS
+- matplotlib the previous days in a graph
+
+
 ...workin progress
 build 0.0.1
 
@@ -20,15 +24,15 @@ import feedparser as fparse
 import os
 
 
-def Url_edit():
+def Url_edit(x):
     """
     Called upon twice to edit and return the edited url changing the the\n
     product type upon request and the da
     """
 
-    starndard_url = w
+    starndard_url = 'https://www.fuelwatch.wa.gov.au/fuelwatch/fuelWatchRSS?day={day_change}'
 
-    changed_url = starndard_url.format()
+    changed_url = starndard_url.format(day_change = x)
 
     return changed_url
 
@@ -40,13 +44,12 @@ def hooked ():
     pythonic way of starting the script
     """
 
-    starndard_url = 'https://www.fuelwatch.wa.gov.au/fuelwatch/fuelWatchRSS'
-    raw_rss_feed = rq.get(starndard_url)
 
-    print(raw_rss_feed)
-
-    feed_parsed = fparse.parse(raw_rss_feed.content)
-
-    print(feed_parsed)
+    raw_rss_feed_today = rq.get(Url_edit('today'))
+    raw_rss_feed_tomorrow = rq.get(Url_edit('tomrorow'))
+    print(raw_rss_feed_today)
+    print(raw_rss_feed_tomorrow)
+    feed_parsed_today = fparse.parse(raw_rss_feed_today.content)
+    print(feed_parsed_today)
 
 hooked()
